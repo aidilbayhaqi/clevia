@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clevia-backend"
+version = "0.1.0"
+description = "Clevia Beauty Clinic website, CRM, appointment, knowledge, and AI chatbot backend."
+requires-python = ">=3.12,<3.15"
+dependencies = [
+    "fastapi[standard]==0.140.13",
+    "sqlalchemy==2.0.51",
+    "alembic==1.18.5",
+    "asyncpg>=0.31,<1.0",
+    "redis[hiredis]>=8.0,<9.0",
+    "openai==2.47.0",
+    "pydantic-settings==2.14.2",
+    "PyJWT[crypto]>=2.10,<3.0",
+    "pwdlib[argon2]>=0.2,<1.0",
+    "email-validator>=2.2,<3.0",
+    "pgvector>=0.4,<1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "httpx>=0.28,<1.0", "ruff>=0.14,<1.0"]
+
+[tool.setuptools.packages.find]
+include = ["app*", "scripts*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100

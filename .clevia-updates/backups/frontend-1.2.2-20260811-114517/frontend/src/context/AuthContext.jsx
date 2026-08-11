@@ -1,0 +1,4 @@
+import {createContext,useContext,useEffect,useMemo,useState} from 'react'; import {TOKEN_KEY} from '../config'; import {crmApi} from '../api/crmApi';
+const AuthContext=createContext(null);
+export function AuthProvider({children}){const [user,setUser]=useState(null),[loading,setLoading]=useState(true); useEffect(()=>{const t=localStorage.getItem(TOKEN_KEY); if(!t){setLoading(false);return;} crmApi.me().then(setUser).catch(()=>localStorage.removeItem(TOKEN_KEY)).finally(()=>setLoading(false));},[]); const value=useMemo(()=>({user,loading,async login(e,p){const d=await crmApi.login(e,p); setUser(d.user||await crmApi.me());},logout(){localStorage.removeItem(TOKEN_KEY);setUser(null);}}),[user,loading]); return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>}
+export const useAuth=()=>useContext(AuthContext);

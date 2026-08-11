@@ -1,0 +1,74 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: clevia-api
+    env_file: [.env]
+    volumes: [".:/app"]
+    ports: ["8000:8000"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/live', timeout=2)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: clevia-frontend
+    environment:
+      VITE_API_URL: ${FRONTEND_API_URL:-http://localhost:8000/api/v1}
+      VITE_DEMO_MODE: ${FRONTEND_DEMO_MODE:-true}
+      VITE_WHATSAPP_NUMBER: ${FRONTEND_WHATSAPP_NUMBER:-622155502026}
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./frontend:/app
+      - clevia_frontend_node_modules:/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: clevia-postgres
+    environment:
+      POSTGRES_DB: clevia
+      POSTGRES_USER: clevia
+      POSTGRES_PASSWORD: clevia
+    ports: ["5432:5432"]
+    volumes: ["clevia_postgres:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clevia -d clevia"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:8-alpine
+    container_name: clevia-redis
+    command: ["redis-server","--appendonly","yes"]
+    ports: ["6379:6379"]
+    volumes: ["clevia_redis:/data"]
+    healthcheck:
+      test: ["CMD","redis-cli","ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  clevia_frontend_node_modules:
+  clevia_postgres:
+  clevia_redis:

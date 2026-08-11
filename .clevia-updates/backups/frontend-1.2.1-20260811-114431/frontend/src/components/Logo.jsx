@@ -1,0 +1,1 @@
+import {Link} from 'react-router-dom'; export default function Logo({dark=false}){return <Link to="/" className={`brand ${dark?'brand--dark':''}`} aria-label="Clevia home"><span className="brand__mark">C</span><span><b>CLEVIA</b><small>BEAUTY CLINIC</small></span></Link>}

@@ -1,0 +1,85 @@
+import {
+  BarChart3,
+  BookOpen,
+  CalendarDays,
+  ChevronLeft,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  MessageSquareText,
+  Settings,
+  UsersRound,
+  UserRoundSearch,
+} from "../icons";
+import { NavLink, Outlet } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import Logo from "./Logo";
+const links = [
+  ["/admin", LayoutDashboard, "Overview"],
+  ["/admin/leads", UserRoundSearch, "Leads"],
+  ["/admin/clients", UsersRound, "Clients"],
+  ["/admin/appointments", CalendarDays, "Appointments"],
+  ["/admin/conversations", MessageSquareText, "AI Conversations"],
+  ["/admin/knowledge", BookOpen, "Knowledge"],
+  ["/admin/settings", Settings, "Settings"],
+];
+export default function AdminLayout() {
+  const [open, setOpen] = useState(false),
+    { user, logout } = useAuth();
+  return (
+    <div className="admin-shell">
+      <aside className={open ? "admin-side is-open" : "admin-side"}>
+        <div className="admin-side__head">
+          <Logo dark />
+          <button onClick={() => setOpen(false)}>
+            <ChevronLeft />
+          </button>
+        </div>
+        <span className="admin-side__label">Workspace</span>
+        <nav>
+          {links.map(([to, I, label]) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === "/admin"}
+              onClick={() => setOpen(false)}
+            >
+              <I />
+              {label}
+            </NavLink>
+          ))}
+        </nav>
+        <div className="admin-side__foot">
+          <div className="mini-user">
+            <span>{(user?.name || "A")[0]}</span>
+            <div>
+              <b>{user?.name || "Admin"}</b>
+              <small>{user?.role || "admin"}</small>
+            </div>
+          </div>
+          <button onClick={logout}>
+            <LogOut /> Sign out
+          </button>
+        </div>
+      </aside>
+      <section className="admin-main">
+        <header className="admin-top">
+          <button className="admin-menu" onClick={() => setOpen(true)}>
+            <Menu />
+          </button>
+          <div>
+            <small>Clevia CRM</small>
+            <b>Clinic operations</b>
+          </div>
+          <div className="admin-top__status">
+            <i /> AI agent active
+          </div>
+        </header>
+        <div className="admin-content">
+          <Outlet />
+        </div>
+      </section>
+    </div>
+  );
+}
