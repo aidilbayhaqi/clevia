@@ -1,0 +1,664 @@
+{
+  "version": "0.6.2",
+  "canonical_orchestrator_exists": true,
+  "files_scanned": 27,
+  "files_with_llm_hits": 7,
+  "candidates": [
+    {
+      "file": "app/agent/orchestrator.py",
+      "imports": [
+        "__future__",
+        "app.agent.policies",
+        "app.agent.router",
+        "app.agent.schemas",
+        "app.core.config",
+        "app.core.request_context",
+        "app.db.models.conversation",
+        "app.db.models.enums",
+        "app.llm.prompt_registry",
+        "app.llm.provider",
+        "app.observability.tracing",
+        "app.services.safety",
+        "app.tools.registry",
+        "datetime",
+        "json",
+        "sqlalchemy.ext.asyncio",
+        "time"
+      ],
+      "hits": [
+        {
+          "line": 232,
+          "terms": [
+            "complete"
+          ],
+          "text": "outcome = \"answered\" if sources else \"completed\""
+        }
+      ]
+    },
+    {
+      "file": "app/llm/gemini_adapter.py",
+      "imports": [
+        "__future__",
+        "app.llm.gemini_provider",
+        "app.llm.provider_contract"
+      ],
+      "hits": [
+        {
+          "line": 1,
+          "terms": [
+            "gemini"
+          ],
+          "text": "\"\"\"Adapter Gemini ke kontrak LLM canonical Clevia.\"\"\""
+        },
+        {
+          "line": 4,
+          "terms": [
+            "gemini_provider",
+            "gemini"
+          ],
+          "text": "from app.llm.gemini_provider import GeminiProvider"
+        },
+        {
+          "line": 8,
+          "terms": [
+            "gemini"
+          ],
+          "text": "class GeminiLLMAdapter:"
+        },
+        {
+          "line": 9,
+          "terms": [
+            "gemini"
+          ],
+          "text": "provider_name = \"gemini\""
+        },
+        {
+          "line": 11,
+          "terms": [
+            "gemini"
+          ],
+          "text": "def __init__(self, provider: GeminiProvider) -> None:"
+        },
+        {
+          "line": 15,
+          "terms": [
+            "gemini"
+          ],
+          "text": "def from_env(cls) -> \"GeminiLLMAdapter\":"
+        },
+        {
+          "line": 16,
+          "terms": [
+            "gemini"
+          ],
+          "text": "return cls(GeminiProvider.from_env())"
+        },
+        {
+          "line": 22,
+          "terms": [
+            "complete"
+          ],
+          "text": "async def complete("
+        },
+        {
+          "line": 29,
+          "terms": [
+            "generate_text"
+          ],
+          "text": "result = await self._provider.generate_text("
+        }
+      ]
+    },
+    {
+      "file": "app/llm/gemini_provider.py",
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "google",
+        "google.genai",
+        "json",
+        "os",
+        "typing"
+      ],
+      "hits": [
+        {
+          "line": 1,
+          "terms": [
+            "gemini"
+          ],
+          "text": "\"\"\"Gemini provider untuk Clevia."
+        },
+        {
+          "line": 3,
+          "terms": [
+            "gemini"
+          ],
+          "text": "Patch: clevia-p0-gemini-provider-v0.6.0"
+        },
+        {
+          "line": 5,
+          "terms": [
+            "gemini"
+          ],
+          "text": "Tujuan modul ini adalah menyediakan provider Gemini yang terisolasi dari business logic."
+        },
+        {
+          "line": 18,
+          "terms": [
+            "gemini"
+          ],
+          "text": "DEFAULT_GEMINI_MODEL = \"gemini-3.6-flash\""
+        },
+        {
+          "line": 23,
+          "terms": [
+            "gemini"
+          ],
+          "text": "class GeminiProviderError(RuntimeError):"
+        },
+        {
+          "line": 24,
+          "terms": [
+            "gemini"
+          ],
+          "text": "\"\"\"Error terkontrol dari layer provider Gemini.\"\"\""
+        },
+        {
+          "line": 28,
+          "terms": [
+            "gemini"
+          ],
+          "text": "class GeminiProviderConfig:"
+        },
+        {
+          "line": 30,
+          "terms": [
+            "gemini"
+          ],
+          "text": "model: str = DEFAULT_GEMINI_MODEL"
+        },
+        {
+          "line": 35,
+          "terms": [
+            "gemini"
+          ],
+          "text": "def from_env(cls) -> \"GeminiProviderConfig\":"
+        },
+        {
+          "line": 36,
+          "terms": [
+            "gemini"
+          ],
+          "text": "api_key = os.getenv(\"GEMINI_API_KEY\", \"\").strip()"
+        },
+        {
+          "line": 38,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError("
+        },
+        {
+          "line": 39,
+          "terms": [
+            "gemini"
+          ],
+          "text": "\"GEMINI_API_KEY belum di-set. Tambahkan key ke environment lokal; \""
+        },
+        {
+          "line": 43,
+          "terms": [
+            "gemini"
+          ],
+          "text": "model = os.getenv(\"GEMINI_MODEL\", DEFAULT_GEMINI_MODEL).strip() or DEFAULT_GEMINI_MODEL"
+        },
+        {
+          "line": 44,
+          "terms": [
+            "gemini"
+          ],
+          "text": "timeout_raw = os.getenv(\"GEMINI_TIMEOUT_SECONDS\", str(DEFAULT_TIMEOUT_SECONDS)).strip()"
+        },
+        {
+          "line": 46,
+          "terms": [
+            "gemini"
+          ],
+          "text": "\"GEMINI_MAX_OUTPUT_TOKENS\", str(DEFAULT_MAX_OUTPUT_TOKENS)"
+        },
+        {
+          "line": 52,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"GEMINI_TIMEOUT_SECONDS harus berupa angka.\") from exc"
+        },
+        {
+          "line": 57,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"GEMINI_MAX_OUTPUT_TOKENS harus berupa integer.\") from exc"
+        },
+        {
+          "line": 60,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"GEMINI_TIMEOUT_SECONDS harus lebih besar dari 0.\")"
+        },
+        {
+          "line": 62,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"GEMINI_MAX_OUTPUT_TOKENS harus lebih besar dari 0.\")"
+        },
+        {
+          "line": 73,
+          "terms": [
+            "gemini"
+          ],
+          "text": "class GeminiTextResult:"
+        },
+        {
+          "line": 83,
+          "terms": [
+            "gemini"
+          ],
+          "text": "class GeminiProvider:"
+        },
+        {
+          "line": 84,
+          "terms": [
+            "gemini"
+          ],
+          "text": "\"\"\"Async Gemini provider menggunakan official Google Gen AI SDK."
+        },
+        {
+          "line": 91,
+          "terms": [
+            "gemini"
+          ],
+          "text": "sudah deprecated untuk generasi Gemini 3.6+."
+        },
+        {
+          "line": 94,
+          "terms": [
+            "gemini"
+          ],
+          "text": "provider_name = \"gemini\""
+        },
+        {
+          "line": 96,
+          "terms": [
+            "gemini"
+          ],
+          "text": "def __init__(self, config: GeminiProviderConfig) -> None:"
+        },
+        {
+          "line": 101,
+          "terms": [
+            "gemini"
+          ],
+          "text": "def from_env(cls) -> \"GeminiProvider\":"
+        },
+        {
+          "line": 102,
+          "terms": [
+            "gemini"
+          ],
+          "text": "return cls(GeminiProviderConfig.from_env())"
+        },
+        {
+          "line": 112,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError("
+        },
+        {
+          "line": 144,
+          "terms": [
+            "generate_text"
+          ],
+          "text": "async def generate_text("
+        },
+        {
+          "line": 150,
+          "terms": [
+            "gemini"
+          ],
+          "text": ") -> GeminiTextResult:"
+        },
+        {
+          "line": 152,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"Prompt tidak boleh kosong.\")"
+        },
+        {
+          "line": 167,
+          "terms": [
+            "gemini"
+          ],
+          "text": "except GeminiProviderError:"
+        },
+        {
+          "line": 170,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError("
+        },
+        {
+          "line": 171,
+          "terms": [
+            "gemini"
+          ],
+          "text": "f\"Gemini request gagal untuk model {self.config.model}: {type(exc).__name__}\""
+        },
+        {
+          "line": 176,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"Gemini mengembalikan response tanpa text.\")"
+        },
+        {
+          "line": 179,
+          "terms": [
+            "gemini"
+          ],
+          "text": "return GeminiTextResult("
+        },
+        {
+          "line": 197,
+          "terms": [
+            "gemini"
+          ],
+          "text": ") -> tuple[dict[str, Any] | list[Any], GeminiTextResult]:"
+        },
+        {
+          "line": 199,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"Prompt tidak boleh kosong.\")"
+        },
+        {
+          "line": 215,
+          "terms": [
+            "gemini"
+          ],
+          "text": "except GeminiProviderError:"
+        },
+        {
+          "line": 218,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError("
+        },
+        {
+          "line": 219,
+          "terms": [
+            "gemini"
+          ],
+          "text": "f\"Gemini JSON request gagal untuk model {self.config.model}: {type(exc).__name__}\""
+        },
+        {
+          "line": 224,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"Gemini mengembalikan JSON response kosong.\")"
+        },
+        {
+          "line": 229,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"Gemini mengembalikan JSON yang tidak valid.\") from exc"
+        },
+        {
+          "line": 232,
+          "terms": [
+            "gemini"
+          ],
+          "text": "raise GeminiProviderError(\"Structured output harus berupa object atau array JSON.\")"
+        },
+        {
+          "line": 235,
+          "terms": [
+            "gemini"
+          ],
+          "text": "result = GeminiTextResult("
+        }
+      ]
+    },
+    {
+      "file": "app/llm/openai_adapter.py",
+      "imports": [
+        "__future__",
+        "app.core.config",
+        "app.llm.base",
+        "openai",
+        "typing"
+      ],
+      "hits": [
+        {
+          "line": 5,
+          "terms": [
+            "openai"
+          ],
+          "text": "from openai import AsyncOpenAI"
+        },
+        {
+          "line": 11,
+          "terms": [
+            "openai"
+          ],
+          "text": "class OpenAIResponsesAdapter:"
+        },
+        {
+          "line": 12,
+          "terms": [
+            "openai"
+          ],
+          "text": "provider = \"openai\""
+        },
+        {
+          "line": 14,
+          "terms": [
+            "openai"
+          ],
+          "text": "def _get_client(self) -> AsyncOpenAI:"
+        },
+        {
+          "line": 15,
+          "terms": [
+            "openai"
+          ],
+          "text": "if not settings.OPENAI_API_KEY:"
+        },
+        {
+          "line": 17,
+          "terms": [
+            "openai"
+          ],
+          "text": "\"OPENAI_API_KEY is not configured. Set it in .env and restart the API container.\""
+        },
+        {
+          "line": 19,
+          "terms": [
+            "openai"
+          ],
+          "text": "return AsyncOpenAI(api_key=settings.OPENAI_API_KEY)"
+        },
+        {
+          "line": 30,
+          "terms": [
+            "openai"
+          ],
+          "text": "\"model\": settings.OPENAI_MODEL,"
+        },
+        {
+          "line": 31,
+          "terms": [
+            "openai"
+          ],
+          "text": "\"reasoning\": {\"effort\": settings.OPENAI_REASONING_EFFORT},"
+        },
+        {
+          "line": 39,
+          "terms": [
+            "responses.create"
+          ],
+          "text": "response = await client.responses.create(**kwargs)"
+        },
+        {
+          "line": 57,
+          "terms": [
+            "openai"
+          ],
+          "text": "model=settings.OPENAI_MODEL,"
+        }
+      ]
+    },
+    {
+      "file": "app/llm/provider.py",
+      "imports": [
+        "__future__",
+        "app.core.config",
+        "app.llm.base",
+        "app.llm.gemini_adapter",
+        "app.llm.openai_adapter"
+      ],
+      "hits": [
+        {
+          "line": 5,
+          "terms": [
+            "gemini"
+          ],
+          "text": "from app.llm.gemini_adapter import GeminiGenerateContentAdapter"
+        },
+        {
+          "line": 6,
+          "terms": [
+            "openai"
+          ],
+          "text": "from app.llm.openai_adapter import OpenAIResponsesAdapter"
+        },
+        {
+          "line": 12,
+          "terms": [
+            "gemini"
+          ],
+          "text": "if provider == \"gemini\":"
+        },
+        {
+          "line": 13,
+          "terms": [
+            "gemini"
+          ],
+          "text": "return GeminiGenerateContentAdapter()"
+        },
+        {
+          "line": 15,
+          "terms": [
+            "openai"
+          ],
+          "text": "if provider == \"openai\":"
+        },
+        {
+          "line": 16,
+          "terms": [
+            "openai"
+          ],
+          "text": "return OpenAIResponsesAdapter()"
+        },
+        {
+          "line": 20,
+          "terms": [
+            "openai",
+            "gemini"
+          ],
+          "text": "\"Supported providers: gemini, openai.\""
+        }
+      ]
+    },
+    {
+      "file": "app/llm/provider_contract.py",
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "typing"
+      ],
+      "hits": [
+        {
+          "line": 30,
+          "terms": [
+            "complete"
+          ],
+          "text": "async def complete("
+        }
+      ]
+    },
+    {
+      "file": "app/llm/provider_factory.py",
+      "imports": [
+        "__future__",
+        "app.llm.gemini_adapter",
+        "app.llm.provider_contract",
+        "collections.abc",
+        "os"
+      ],
+      "hits": [
+        {
+          "line": 11,
+          "terms": [
+            "gemini"
+          ],
+          "text": "from app.llm.gemini_adapter import GeminiLLMAdapter"
+        },
+        {
+          "line": 15,
+          "terms": [
+            "gemini"
+          ],
+          "text": "DEFAULT_LLM_PROVIDER = \"gemini\""
+        },
+        {
+          "line": 24,
+          "terms": [
+            "gemini"
+          ],
+          "text": "_ALIASES = {\"google\": \"gemini\", \"google-gemini\": \"gemini\"}"
+        },
+        {
+          "line": 61,
+          "terms": [
+            "gemini"
+          ],
+          "text": "def _build_gemini() -> LLMProvider:"
+        },
+        {
+          "line": 62,
+          "terms": [
+            "gemini"
+          ],
+          "text": "return GeminiLLMAdapter.from_env()"
+        },
+        {
+          "line": 65,
+          "terms": [
+            "gemini"
+          ],
+          "text": "register_llm_provider(\"gemini\", _build_gemini)"
+        }
+      ]
+    }
+  ]
+}

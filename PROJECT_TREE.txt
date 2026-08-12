@@ -1,151 +1,417 @@
-clevia-backend/
-📄 .dockerignore
-📄 .env.example
-📄 .gitignore
-📄 Dockerfile
-📄 Dockerfile.dev
-📄 Makefile
-📄 README.md
-📁 alembic
-  📁 alembic/__pycache__
-    📄 alembic/__pycache__/env.cpython-313.pyc
-  📄 alembic/env.py
-  📄 alembic/script.py.mako
-  📁 alembic/versions
-    📄 alembic/versions/20260808_0001_initial.py
-    📁 alembic/versions/__pycache__
-      📄 alembic/versions/__pycache__/20260808_0001_initial.cpython-313.pyc
-📄 alembic.ini
-📁 app
-  📄 app/__init__.py
-  📁 app/__pycache__
-    📄 app/__pycache__/__init__.cpython-313.pyc
-    📄 app/__pycache__/main.cpython-313.pyc
-  📁 app/agents
-    📄 app/agents/__init__.py
-    📁 app/agents/__pycache__
-      📄 app/agents/__pycache__/__init__.cpython-313.pyc
-      📄 app/agents/__pycache__/orchestrator.cpython-313.pyc
-      📄 app/agents/__pycache__/prompts.cpython-313.pyc
-    📄 app/agents/orchestrator.py
-    📄 app/agents/prompts.py
-    📁 app/agents/tools
-      📄 app/agents/tools/__init__.py
-      📁 app/agents/tools/__pycache__
-        📄 app/agents/tools/__pycache__/__init__.cpython-313.pyc
-        📄 app/agents/tools/__pycache__/registry.cpython-313.pyc
-      📄 app/agents/tools/registry.py
-  📁 app/api
-    📄 app/api/__init__.py
-    📁 app/api/__pycache__
-      📄 app/api/__pycache__/__init__.cpython-313.pyc
-      📄 app/api/__pycache__/deps.cpython-313.pyc
-    📄 app/api/deps.py
-    📁 app/api/v1
-      📄 app/api/v1/__init__.py
-      📁 app/api/v1/__pycache__
-        📄 app/api/v1/__pycache__/__init__.cpython-313.pyc
-        📄 app/api/v1/__pycache__/router.cpython-313.pyc
-      📄 app/api/v1/router.py
-      📁 app/api/v1/routes
-        📄 app/api/v1/routes/__init__.py
-        📁 app/api/v1/routes/__pycache__
-          📄 app/api/v1/routes/__pycache__/__init__.cpython-313.pyc
-          📄 app/api/v1/routes/__pycache__/appointments.cpython-313.pyc
-          📄 app/api/v1/routes/__pycache__/auth.cpython-313.pyc
-          📄 app/api/v1/routes/__pycache__/conversations.cpython-313.pyc
-          📄 app/api/v1/routes/__pycache__/crm.cpython-313.pyc
-          📄 app/api/v1/routes/__pycache__/health.cpython-313.pyc
-          📄 app/api/v1/routes/__pycache__/knowledge.cpython-313.pyc
-          📄 app/api/v1/routes/__pycache__/public.cpython-313.pyc
-        📄 app/api/v1/routes/appointments.py
-        📄 app/api/v1/routes/auth.py
-        📄 app/api/v1/routes/conversations.py
-        📄 app/api/v1/routes/crm.py
-        📄 app/api/v1/routes/health.py
-        📄 app/api/v1/routes/knowledge.py
-        📄 app/api/v1/routes/public.py
-  📁 app/core
-    📄 app/core/__init__.py
-    📁 app/core/__pycache__
-      📄 app/core/__pycache__/__init__.cpython-313.pyc
-      📄 app/core/__pycache__/config.cpython-313.pyc
-      📄 app/core/__pycache__/security.cpython-313.pyc
-    📄 app/core/config.py
-    📄 app/core/security.py
-  📁 app/db
-    📄 app/db/__init__.py
-    📁 app/db/__pycache__
-      📄 app/db/__pycache__/__init__.cpython-313.pyc
-      📄 app/db/__pycache__/base.cpython-313.pyc
-      📄 app/db/__pycache__/session.cpython-313.pyc
-    📄 app/db/base.py
-    📁 app/db/models
-      📄 app/db/models/__init__.py
-      📁 app/db/models/__pycache__
-        📄 app/db/models/__pycache__/__init__.cpython-313.pyc
-        📄 app/db/models/__pycache__/appointment.cpython-313.pyc
-        📄 app/db/models/__pycache__/audit.cpython-313.pyc
-        📄 app/db/models/__pycache__/base.cpython-313.pyc
-        📄 app/db/models/__pycache__/clinic.cpython-313.pyc
-        📄 app/db/models/__pycache__/conversation.cpython-313.pyc
-        📄 app/db/models/__pycache__/crm.cpython-313.pyc
-        📄 app/db/models/__pycache__/enums.cpython-313.pyc
-        📄 app/db/models/__pycache__/knowledge.cpython-313.pyc
-        📄 app/db/models/__pycache__/service.cpython-313.pyc
-        📄 app/db/models/__pycache__/staff.cpython-313.pyc
-        📄 app/db/models/__pycache__/user.cpython-313.pyc
-      📄 app/db/models/appointment.py
-      📄 app/db/models/audit.py
-      📄 app/db/models/base.py
-      📄 app/db/models/clinic.py
-      📄 app/db/models/conversation.py
-      📄 app/db/models/crm.py
-      📄 app/db/models/enums.py
-      📄 app/db/models/knowledge.py
-      📄 app/db/models/service.py
-      📄 app/db/models/staff.py
-      📄 app/db/models/user.py
-    📄 app/db/session.py
-  📄 app/main.py
-  📁 app/schemas
-    📄 app/schemas/__init__.py
-    📁 app/schemas/__pycache__
-      📄 app/schemas/__pycache__/__init__.cpython-313.pyc
-      📄 app/schemas/__pycache__/appointment.cpython-313.pyc
-      📄 app/schemas/__pycache__/auth.cpython-313.pyc
-      📄 app/schemas/__pycache__/conversation.cpython-313.pyc
-      📄 app/schemas/__pycache__/crm.cpython-313.pyc
-      📄 app/schemas/__pycache__/knowledge.cpython-313.pyc
-      📄 app/schemas/__pycache__/public.cpython-313.pyc
-    📄 app/schemas/appointment.py
-    📄 app/schemas/auth.py
-    📄 app/schemas/conversation.py
-    📄 app/schemas/crm.py
-    📄 app/schemas/knowledge.py
-    📄 app/schemas/public.py
-  📁 app/services
-    📄 app/services/__init__.py
-    📁 app/services/__pycache__
-      📄 app/services/__pycache__/__init__.cpython-313.pyc
-      📄 app/services/__pycache__/appointments.cpython-313.pyc
-      📄 app/services/__pycache__/safety.cpython-313.pyc
-    📄 app/services/appointments.py
-    📄 app/services/safety.py
-📄 compose.yaml
-📄 install.sh
-📄 pyproject.toml
-📁 scripts
-  📄 scripts/__init__.py
-  📁 scripts/__pycache__
-    📄 scripts/__pycache__/__init__.cpython-313.pyc
-    📄 scripts/__pycache__/seed.cpython-313.pyc
-  📄 scripts/seed.py
-📁 tests
-  📄 tests/__init__.py
-  📁 tests/__pycache__
-    📄 tests/__pycache__/__init__.cpython-313.pyc
-    📄 tests/__pycache__/test_safety.cpython-313.pyc
-    📄 tests/__pycache__/test_security.cpython-313.pyc
-  📄 tests/test_safety.py
-  📄 tests/test_security.py
+Clevia/
+├── .clevia-architecture/
+│   └── legacy_agent_imports.baseline.json
+├── .clevia-updates/
+│   ├── backups/
+│   │   ├── 1.1.0-20260808-101742/
+│   │   │   ├── app/
+│   │   │   │   ├── agents/
+│   │   │   │   └── api/
+│   │   │   ├── .dockerignore
+│   │   │   └── install.ps1
+│   │   ├── frontend-1.2.0-20260810-141420/
+│   │   │   └── .gitignore
+│   │   ├── frontend-1.2.1-20260811-114332/
+│   │   │   ├── frontend/
+│   │   │   │   ├── public/
+│   │   │   │   ├── src/
+│   │   │   │   ├── .env
+│   │   │   │   ├── .env.example
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── BACKEND_COMPATIBILITY.md
+│   │   │   │   ├── index.html
+│   │   │   │   ├── package-lock.json
+│   │   │   │   ├── package.json
+│   │   │   │   ├── PROJECT_STRUCTURE.md
+│   │   │   │   ├── README.md
+│   │   │   │   └── vite.config.js
+│   │   │   ├── .env.example
+│   │   │   ├── .gitignore
+│   │   │   └── compose.yaml
+│   │   ├── frontend-1.2.1-20260811-114431/
+│   │   │   ├── frontend/
+│   │   │   │   ├── public/
+│   │   │   │   ├── src/
+│   │   │   │   ├── .dockerignore
+│   │   │   │   ├── .env
+│   │   │   │   ├── .env.example
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── BACKEND_COMPATIBILITY.md
+│   │   │   │   ├── Dockerfile.dev
+│   │   │   │   ├── index.html
+│   │   │   │   ├── package-lock.json
+│   │   │   │   ├── package.json
+│   │   │   │   ├── PROJECT_STRUCTURE.md
+│   │   │   │   ├── README.md
+│   │   │   │   └── vite.config.js
+│   │   │   ├── .env.example
+│   │   │   ├── .gitignore
+│   │   │   └── compose.yaml
+│   │   └── frontend-1.2.2-20260811-114517/
+│   │       ├── frontend/
+│   │       │   ├── public/
+│   │       │   ├── src/
+│   │       │   ├── .dockerignore
+│   │       │   ├── .env
+│   │       │   ├── .env.example
+│   │       │   ├── .gitignore
+│   │       │   ├── BACKEND_COMPATIBILITY.md
+│   │       │   ├── Dockerfile.dev
+│   │       │   ├── index.html
+│   │       │   ├── package-lock.json
+│   │       │   ├── package.json
+│   │       │   ├── PROJECT_STRUCTURE.md
+│   │       │   ├── README.md
+│   │       │   └── vite.config.js
+│   │       ├── .env.example
+│   │       ├── .gitignore
+│   │       └── compose.yaml
+│   ├── clevia-p0-alembic-hotfix-v0.5.3/
+│   │   └── 20260812-112427/
+│   │       └── 20260812_0002_p0_conversation_state.py
+│   ├── clevia-p0-core-update-v0.4.1/
+│   │   ├── 20260812-105450/
+│   │   │   ├── app/
+│   │   │   │   ├── agent/
+│   │   │   │   ├── core/
+│   │   │   │   ├── llm/
+│   │   │   │   └── tools/
+│   │   │   ├── .env
+│   │   │   ├── .env.example
+│   │   │   └── pyproject.toml
+│   │   └── latest.json
+│   ├── clevia-p0-gemini-provider-v0.6.0/
+│   │   └── 20260812-115505/
+│   │       ├── app/
+│   │       │   ├── agent/
+│   │       │   ├── api/
+│   │       │   └── core/
+│   │       ├── .env
+│   │       ├── .env.example
+│   │       └── pyproject.toml
+│   ├── clevia-p0-hotfix-v0.5.1/
+│   │   └── 20260812-111736/
+│   │       └── enums.py
+│   ├── clevia-p0-stabilization-v0.5.0/
+│   │   ├── 20260812-110643/
+│   │   │   ├── adr/
+│   │   │   │   └── ADR-008-single-business-deployment.md
+│   │   │   ├── app/
+│   │   │   │   ├── agent/
+│   │   │   │   ├── core/
+│   │   │   │   ├── llm/
+│   │   │   │   └── tools/
+│   │   │   ├── tests/
+│   │   │   │   └── test_p0_router.py
+│   │   │   ├── .env
+│   │   │   ├── .env.example
+│   │   │   └── pyproject.toml
+│   │   └── latest.json
+│   ├── sprint0-1-v0.3.0-20260811-132449/
+│   │   ├── files/
+│   │   │   ├── app/
+│   │   │   │   ├── agents/
+│   │   │   │   ├── api/
+│   │   │   │   ├── core/
+│   │   │   │   ├── db/
+│   │   │   │   ├── schemas/
+│   │   │   │   ├── services/
+│   │   │   │   └── main.py
+│   │   │   ├── frontend/
+│   │   │   │   ├── src/
+│   │   │   │   ├── .env
+│   │   │   │   └── .env.example
+│   │   │   ├── scripts/
+│   │   │   │   └── seed.py
+│   │   │   ├── .env
+│   │   │   ├── .env.example
+│   │   │   ├── .gitignore
+│   │   │   ├── compose.yaml
+│   │   │   └── pyproject.toml
+│   │   └── backup-manifest.json
+│   ├── sprint0-1-v0.3.0-20260812-093257/
+│   │   ├── files/
+│   │   │   ├── .github/
+│   │   │   │   └── workflows/
+│   │   │   ├── adr/
+│   │   │   │   ├── ADR-001-monorepo.md
+│   │   │   │   ├── ADR-002-llm-provider-abstraction.md
+│   │   │   │   ├── ADR-003-pgvector.md
+│   │   │   │   ├── ADR-004-tenant-isolation.md
+│   │   │   │   ├── ADR-005-conversation-state.md
+│   │   │   │   ├── ADR-006-tool-policy.md
+│   │   │   │   └── ADR-007-prompt-governance.md
+│   │   │   ├── alembic/
+│   │   │   │   └── versions/
+│   │   │   ├── app/
+│   │   │   │   ├── agent/
+│   │   │   │   ├── agents/
+│   │   │   │   ├── api/
+│   │   │   │   ├── core/
+│   │   │   │   ├── db/
+│   │   │   │   ├── knowledge/
+│   │   │   │   ├── llm/
+│   │   │   │   ├── observability/
+│   │   │   │   ├── schemas/
+│   │   │   │   ├── services/
+│   │   │   │   ├── tools/
+│   │   │   │   └── main.py
+│   │   │   ├── docs/
+│   │   │   │   ├── KNOWN_LIMITATIONS.md
+│   │   │   │   └── SPRINT_0_1_IMPLEMENTATION.md
+│   │   │   ├── evals/
+│   │   │   │   ├── datasets/
+│   │   │   │   ├── __init__.py
+│   │   │   │   └── runner.py
+│   │   │   ├── frontend/
+│   │   │   │   ├── src/
+│   │   │   │   ├── .env
+│   │   │   │   ├── .env.example
+│   │   │   │   ├── Dockerfile
+│   │   │   │   └── nginx.conf
+│   │   │   ├── runbooks/
+│   │   │   │   └── rollback-sprint0-1.md
+│   │   │   ├── scripts/
+│   │   │   │   └── seed.py
+│   │   │   ├── tests/
+│   │   │   │   ├── test_agent_router.py
+│   │   │   │   ├── test_agent_state.py
+│   │   │   │   ├── test_knowledge_chunking.py
+│   │   │   │   └── test_prompt_registry.py
+│   │   │   ├── .env
+│   │   │   ├── .env.example
+│   │   │   ├── .gitignore
+│   │   │   ├── CHANGELOG.md
+│   │   │   ├── compose.staging.yaml
+│   │   │   ├── compose.yaml
+│   │   │   └── pyproject.toml
+│   │   └── backup-manifest.json
+│   └── installed-updates.log
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── adr/
+│   ├── ADR-001-monorepo.md
+│   ├── ADR-002-llm-provider-abstraction.md
+│   ├── ADR-003-pgvector.md
+│   ├── ADR-004-tenant-isolation.md
+│   ├── ADR-005-conversation-state.md
+│   ├── ADR-006-tool-policy.md
+│   ├── ADR-007-prompt-governance.md
+│   └── ADR-008-single-business-deployment.md
+├── alembic/
+│   ├── versions/
+│   │   ├── 20260808_0001_initial.py
+│   │   └── 20260811_0002_sprint0_1_foundation.py
+│   ├── env.py
+│   └── script.py.mako
+├── app/
+│   ├── agent/
+│   │   ├── __init__.py
+│   │   ├── CANONICAL_RUNTIME.md
+│   │   ├── orchestrator.py
+│   │   ├── policies.py
+│   │   ├── router.py
+│   │   ├── schemas.py
+│   │   └── state.py
+│   ├── agents/
+│   │   ├── tools/
+│   │   │   ├── __init__.py
+│   │   │   └── registry.py
+│   │   ├── __init__.py
+│   │   ├── DEPRECATED.md
+│   │   ├── orchestrator.py
+│   │   └── prompts.py
+│   ├── api/
+│   │   ├── v1/
+│   │   │   ├── routes/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── appointments.py
+│   │   │   │   ├── auth.py
+│   │   │   │   ├── conversations.py
+│   │   │   │   ├── crm.py
+│   │   │   │   ├── health.py
+│   │   │   │   ├── knowledge.py
+│   │   │   │   └── public.py
+│   │   │   ├── __init__.py
+│   │   │   └── router.py
+│   │   ├── __init__.py
+│   │   └── deps.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   ├── logging.py
+│   │   ├── redis.py
+│   │   ├── request_context.py
+│   │   └── security.py
+│   ├── db/
+│   │   ├── models/
+│   │   │   ├── __init__.py
+│   │   │   ├── appointment.py
+│   │   │   ├── audit.py
+│   │   │   ├── base.py
+│   │   │   ├── clinic.py
+│   │   │   ├── conversation.py
+│   │   │   ├── crm.py
+│   │   │   ├── enums.py
+│   │   │   ├── knowledge.py
+│   │   │   ├── observability.py
+│   │   │   ├── service.py
+│   │   │   ├── staff.py
+│   │   │   └── user.py
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   └── session.py
+│   ├── knowledge/
+│   │   ├── __init__.py
+│   │   ├── chunking.py
+│   │   ├── ingestion.py
+│   │   ├── retrieval.py
+│   │   └── schemas.py
+│   ├── llm/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── gemini_adapter.py
+│   │   ├── gemini_provider.py
+│   │   ├── openai_adapter.py
+│   │   ├── prompt_registry.py
+│   │   └── provider.py
+│   ├── observability/
+│   │   ├── __init__.py
+│   │   └── tracing.py
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── appointment.py
+│   │   ├── auth.py
+│   │   ├── conversation.py
+│   │   ├── crm.py
+│   │   ├── knowledge.py
+│   │   └── public.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── appointments.py
+│   │   ├── audit.py
+│   │   ├── cache.py
+│   │   └── safety.py
+│   ├── tools/
+│   │   ├── __init__.py
+│   │   └── registry.py
+│   ├── __init__.py
+│   └── main.py
+├── docs/
+│   ├── adr/
+│   │   ├── ADR-014-gemini-provider.md
+│   │   └── ADR-015-canonical-agent-runtime.md
+│   ├── audits/
+│   │   ├── agent-runtime-audit-v0.6.1.json
+│   │   └── agent-runtime-audit-v0.6.1.md
+│   ├── runbooks/
+│   │   └── AGENT_RUNTIME_MIGRATION.md
+│   ├── KNOWN_LIMITATIONS.md
+│   └── SPRINT_0_1_IMPLEMENTATION.md
+├── evals/
+│   ├── datasets/
+│   │   └── golden_v1.jsonl
+│   ├── __init__.py
+│   └── runner.py
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── api/
+│   │   │   ├── client.js
+│   │   │   ├── crmApi.js
+│   │   │   └── publicApi.js
+│   │   ├── components/
+│   │   │   ├── AdminLayout.jsx
+│   │   │   ├── ChatWidget.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Logo.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── PublicLayout.jsx
+│   │   │   ├── RequireAuth.jsx
+│   │   │   └── Ui.jsx
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx
+│   │   ├── data/
+│   │   │   └── demo.js
+│   │   ├── pages/
+│   │   │   ├── admin/
+│   │   │   │   ├── AppointmentsPage.jsx
+│   │   │   │   ├── ClientsPage.jsx
+│   │   │   │   ├── ConversationsPage.jsx
+│   │   │   │   ├── DashboardPage.jsx
+│   │   │   │   ├── KnowledgePage.jsx
+│   │   │   │   ├── LeadsPage.jsx
+│   │   │   │   ├── LoginPage.jsx
+│   │   │   │   └── SettingsPage.jsx
+│   │   │   └── public/
+│   │   │       ├── AboutPage.jsx
+│   │   │       ├── BookingPage.jsx
+│   │   │       ├── ContactPage.jsx
+│   │   │       ├── DoctorsPage.jsx
+│   │   │       ├── HomePage.jsx
+│   │   │       └── TreatmentsPage.jsx
+│   │   ├── styles/
+│   │   │   └── global.css
+│   │   ├── utils/
+│   │   │   └── format.js
+│   │   ├── App.jsx
+│   │   ├── config.js
+│   │   ├── icons.jsx
+│   │   └── main.jsx
+│   ├── .dockerignore
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── BACKEND_COMPATIBILITY.md
+│   ├── Dockerfile
+│   ├── Dockerfile.dev
+│   ├── index.html
+│   ├── nginx.conf
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── PROJECT_STRUCTURE.md
+│   ├── README.md
+│   └── vite.config.js
+├── runbooks/
+│   └── rollback-sprint0-1.md
+├── scripts/
+│   ├── __init__.py
+│   ├── audit_agent_runtime.py
+│   ├── generate_project_tree.py
+│   ├── seed.py
+│   ├── smoke_gemini_provider.py
+│   └── test_gemini.py
+├── tests/
+│   ├── architecture/
+│   │   └── test_agent_runtime_boundary.py
+│   ├── unit/
+│   │   └── test_gemini_provider.py
+│   ├── __init__.py
+│   ├── test_agent_router.py
+│   ├── test_agent_state.py
+│   ├── test_knowledge_chunking.py
+│   ├── test_llm_provider.py
+│   ├── test_p0_contracts.py
+│   ├── test_p0_router.py
+│   ├── test_prompt_registry.py
+│   ├── test_safety.py
+│   └── test_security.py
+├── .dockerignore
+├── .env
+├── .env.example
+├── .gitignore
+├── alembic.ini
+├── CHANGELOG.md
+├── clevia-backend.zip
+├── clevia-p0-diagnostic-v0.5.2.log
+├── compose.staging.yaml
+├── compose.yaml
+├── Dockerfile
+├── Dockerfile.dev
+├── install.ps1
+├── install.sh
+├── Makefile
+├── PROJECT_TREE.txt
+├── pyproject.toml
+└── README.md

@@ -1,0 +1,630 @@
+{
+  "generated_at": "2026-08-12T08:02:25.755757+00:00",
+  "repo_name": "Clevia",
+  "canonical_runtime": "app/agent",
+  "legacy_runtime": "app/agents",
+  "canonical_exists": true,
+  "legacy_exists": true,
+  "canonical_import_count": 36,
+  "legacy_import_count": 3,
+  "external_legacy_import_count": 3,
+  "canonical_imports_legacy_count": 0,
+  "canonical_imports": [
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 5,
+      "module": "app.agents.prompts",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 6,
+      "module": "app.agents.tools.registry",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/api/v1/routes/conversations.py",
+      "line": 7,
+      "module": "app.agents.orchestrator",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-core-update-v0.4.1/20260812-105450/app/agent/orchestrator.py",
+      "line": 9,
+      "module": "app.agent.policies",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-core-update-v0.4.1/20260812-105450/app/agent/orchestrator.py",
+      "line": 15,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-core-update-v0.4.1/20260812-105450/app/agent/orchestrator.py",
+      "line": 16,
+      "module": "app.agent.schemas",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-core-update-v0.4.1/20260812-105450/app/agent/policies.py",
+      "line": 3,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-gemini-provider-v0.6.0/20260812-115505/app/agent/orchestrator.py",
+      "line": 9,
+      "module": "app.agent.policies",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-gemini-provider-v0.6.0/20260812-115505/app/agent/orchestrator.py",
+      "line": 15,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-gemini-provider-v0.6.0/20260812-115505/app/agent/orchestrator.py",
+      "line": 16,
+      "module": "app.agent.schemas",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-gemini-provider-v0.6.0/20260812-115505/app/api/v1/routes/conversations.py",
+      "line": 9,
+      "module": "app.agent.orchestrator",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/app/agent/orchestrator.py",
+      "line": 9,
+      "module": "app.agent.policies",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/app/agent/orchestrator.py",
+      "line": 15,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/app/agent/orchestrator.py",
+      "line": 16,
+      "module": "app.agent.schemas",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/app/agent/policies.py",
+      "line": 3,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/tests/test_p0_router.py",
+      "line": 1,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agent/orchestrator.py",
+      "line": 9,
+      "module": "app.agent.policies",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agent/orchestrator.py",
+      "line": 15,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agent/orchestrator.py",
+      "line": 16,
+      "module": "app.agent.schemas",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agent/policies.py",
+      "line": 3,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agents/orchestrator.py",
+      "line": 3,
+      "module": "app.agent.orchestrator",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/api/v1/routes/conversations.py",
+      "line": 9,
+      "module": "app.agent.orchestrator",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/evals/runner.py",
+      "line": 7,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/tests/test_agent_router.py",
+      "line": 1,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/tests/test_agent_state.py",
+      "line": 1,
+      "module": "app.agent.state",
+      "kind": "from"
+    },
+    {
+      "file": "app/agent/orchestrator.py",
+      "line": 9,
+      "module": "app.agent.policies",
+      "kind": "from"
+    },
+    {
+      "file": "app/agent/orchestrator.py",
+      "line": 15,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": "app/agent/orchestrator.py",
+      "line": 16,
+      "module": "app.agent.schemas",
+      "kind": "from"
+    },
+    {
+      "file": "app/agent/policies.py",
+      "line": 3,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": "app/agents/orchestrator.py",
+      "line": 3,
+      "module": "app.agent.orchestrator",
+      "kind": "from"
+    },
+    {
+      "file": "app/api/v1/routes/conversations.py",
+      "line": 9,
+      "module": "app.agent.orchestrator",
+      "kind": "from"
+    },
+    {
+      "file": "evals/runner.py",
+      "line": 7,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": "tests/test_agent_router.py",
+      "line": 1,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": "tests/test_agent_state.py",
+      "line": 1,
+      "module": "app.agent.state",
+      "kind": "from"
+    },
+    {
+      "file": "tests/test_p0_contracts.py",
+      "line": 1,
+      "module": "app.agent.router",
+      "kind": "from"
+    },
+    {
+      "file": "tests/test_p0_router.py",
+      "line": 1,
+      "module": "app.agent.router",
+      "kind": "from"
+    }
+  ],
+  "legacy_imports": [
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 5,
+      "module": "app.agents.prompts",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 6,
+      "module": "app.agents.tools.registry",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/api/v1/routes/conversations.py",
+      "line": 7,
+      "module": "app.agents.orchestrator",
+      "kind": "from"
+    }
+  ],
+  "external_legacy_imports": [
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 5,
+      "module": "app.agents.prompts",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 6,
+      "module": "app.agents.tools.registry",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/api/v1/routes/conversations.py",
+      "line": 7,
+      "module": "app.agents.orchestrator",
+      "kind": "from"
+    }
+  ],
+  "canonical_imports_legacy": [],
+  "text_references": [
+    {
+      "file": "evals/runner.py",
+      "line": 7,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import route_intent"
+    },
+    {
+      "file": "scripts/audit_agent_runtime.py",
+      "line": 6,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "``app.agent`` (canonical) dan ``app.agents`` (legacy), membuat baseline tech-debt,"
+    },
+    {
+      "file": "scripts/audit_agent_runtime.py",
+      "line": 31,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "CANONICAL_PREFIX = 'app.agent'"
+    },
+    {
+      "file": "scripts/audit_agent_runtime.py",
+      "line": 32,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "LEGACY_PREFIX = 'app.agents'"
+    },
+    {
+      "file": "scripts/audit_agent_runtime.py",
+      "line": 159,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "'purpose': 'Baseline utang teknis import app.agents; import legacy baru dilarang.',"
+    },
+    {
+      "file": "scripts/audit_agent_runtime.py",
+      "line": 210,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "'Masih ada consumer yang mengimpor `app.agents`. Import tersebut dibaseline sebagai utang teknis dan **tidak dihapus otomatis**.', '',"
+    },
+    {
+      "file": "scripts/audit_agent_runtime.py",
+      "line": 230,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "'3. Jangan menambah import `app.agents` baru.',"
+    },
+    {
+      "file": "tests/test_agent_router.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": "tests/test_agent_state.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.state import can_transition"
+    },
+    {
+      "file": "tests/test_p0_contracts.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": "tests/test_p0_router.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": "tests/architecture/test_agent_runtime_boundary.py",
+      "line": 4,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "menjadi daftar debt yang sudah diketahui; import ``app.agents`` baru akan gagal."
+    },
+    {
+      "file": "tests/architecture/test_agent_runtime_boundary.py",
+      "line": 37,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "if alias.name.startswith('app.agents'):"
+    },
+    {
+      "file": "tests/architecture/test_agent_runtime_boundary.py",
+      "line": 41,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "if module.startswith('app.agents'):"
+    },
+    {
+      "file": "tests/architecture/test_agent_runtime_boundary.py",
+      "line": 73,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "'Import baru ke app.agents dilarang. Gunakan app.agent sebagai canonical runtime. '"
+    },
+    {
+      "file": "app/agent/orchestrator.py",
+      "line": 9,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.policies import ("
+    },
+    {
+      "file": "app/agent/orchestrator.py",
+      "line": 15,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": "app/agent/orchestrator.py",
+      "line": 16,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.schemas import AgentResult, HandoffResult, SourceReference"
+    },
+    {
+      "file": "app/agent/policies.py",
+      "line": 3,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent"
+    },
+    {
+      "file": "app/agents/orchestrator.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "\"\"\"Compatibility import for code that still references app.agents.orchestrator.\"\"\""
+    },
+    {
+      "file": "app/agents/orchestrator.py",
+      "line": 3,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.orchestrator import CleviaAgent"
+    },
+    {
+      "file": "app/api/v1/routes/conversations.py",
+      "line": 9,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.orchestrator import CleviaAgent"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/evals/runner.py",
+      "line": 7,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import route_intent"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/tests/test_agent_router.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/tests/test_agent_state.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.state import can_transition"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agent/orchestrator.py",
+      "line": 9,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.policies import ("
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agent/orchestrator.py",
+      "line": 15,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agent/orchestrator.py",
+      "line": 16,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.schemas import AgentResult, HandoffResult, SourceReference"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agent/policies.py",
+      "line": 3,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agents/orchestrator.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "\"\"\"Compatibility import for code that still references app.agents.orchestrator.\"\"\""
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/agents/orchestrator.py",
+      "line": 3,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.orchestrator import CleviaAgent"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260812-093257/files/app/api/v1/routes/conversations.py",
+      "line": 9,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.orchestrator import CleviaAgent"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260811-132449/files/app/agents/orchestrator.py",
+      "line": 6,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "from app.agents.prompts import SYSTEM_PROMPT"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260811-132449/files/app/agents/orchestrator.py",
+      "line": 7,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "from app.agents.tools.registry import TOOL_SCHEMAS, execute_tool"
+    },
+    {
+      "file": ".clevia-updates/sprint0-1-v0.3.0-20260811-132449/files/app/api/v1/routes/conversations.py",
+      "line": 7,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "from app.agents.orchestrator import CleviaAgent"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/tests/test_p0_router.py",
+      "line": 1,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/app/agent/orchestrator.py",
+      "line": 9,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.policies import ("
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/app/agent/orchestrator.py",
+      "line": 15,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/app/agent/orchestrator.py",
+      "line": 16,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.schemas import AgentResult, HandoffResult, SourceReference"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-stabilization-v0.5.0/20260812-110643/app/agent/policies.py",
+      "line": 3,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-gemini-provider-v0.6.0/20260812-115505/app/agent/orchestrator.py",
+      "line": 9,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.policies import ("
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-gemini-provider-v0.6.0/20260812-115505/app/agent/orchestrator.py",
+      "line": 15,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-gemini-provider-v0.6.0/20260812-115505/app/agent/orchestrator.py",
+      "line": 16,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.schemas import AgentResult, HandoffResult, SourceReference"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-gemini-provider-v0.6.0/20260812-115505/app/api/v1/routes/conversations.py",
+      "line": 9,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.orchestrator import CleviaAgent"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-core-update-v0.4.1/20260812-105450/app/agent/orchestrator.py",
+      "line": 9,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.policies import ("
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-core-update-v0.4.1/20260812-105450/app/agent/orchestrator.py",
+      "line": 15,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent, route_intent"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-core-update-v0.4.1/20260812-105450/app/agent/orchestrator.py",
+      "line": 16,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.schemas import AgentResult, HandoffResult, SourceReference"
+    },
+    {
+      "file": ".clevia-updates/clevia-p0-core-update-v0.4.1/20260812-105450/app/agent/policies.py",
+      "line": 3,
+      "canonical_ref": true,
+      "legacy_ref": false,
+      "preview": "from app.agent.router import Intent"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 5,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "from app.agents.prompts import SYSTEM_PROMPT"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 6,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "from app.agents.tools.registry import TOOL_SCHEMAS, execute_tool"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/api/v1/routes/conversations.py",
+      "line": 7,
+      "canonical_ref": true,
+      "legacy_ref": true,
+      "preview": "from app.agents.orchestrator import CleviaAgent"
+    }
+  ]
+}

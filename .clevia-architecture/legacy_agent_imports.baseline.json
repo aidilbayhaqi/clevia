@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "purpose": "Baseline utang teknis import app.agents; import legacy baru dilarang.",
+  "canonical_runtime": "app/agent",
+  "legacy_runtime": "app/agents",
+  "generated_at": "2026-08-12T08:02:25.755757+00:00",
+  "imports": [
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 5,
+      "module": "app.agents.prompts",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/agents/orchestrator.py",
+      "line": 6,
+      "module": "app.agents.tools.registry",
+      "kind": "from"
+    },
+    {
+      "file": ".clevia-updates/backups/1.1.0-20260808-101742/app/api/v1/routes/conversations.py",
+      "line": 7,
+      "module": "app.agents.orchestrator",
+      "kind": "from"
+    }
+  ]
+}
