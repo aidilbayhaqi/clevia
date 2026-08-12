@@ -13,7 +13,11 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/live', timeout=2)\""]
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/live', timeout=2)\"",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -27,7 +31,7 @@ services:
     container_name: clevia-frontend
     environment:
       VITE_API_URL: ${FRONTEND_API_URL:-http://localhost:8000/api/v1}
-      VITE_DEMO_MODE: ${FRONTEND_DEMO_MODE:-true}
+      VITE_DEMO_MODE: ${FRONTEND_DEMO_MODE:-false}
       VITE_WHATSAPP_NUMBER: ${FRONTEND_WHATSAPP_NUMBER:-622155502026}
       CHOKIDAR_USEPOLLING: "true"
     volumes:
@@ -39,6 +43,7 @@ services:
       api:
         condition: service_healthy
     restart: unless-stopped
+
   postgres:
     image: pgvector/pgvector:pg16
     container_name: clevia-postgres
@@ -58,11 +63,11 @@ services:
   redis:
     image: redis:8-alpine
     container_name: clevia-redis
-    command: ["redis-server","--appendonly","yes"]
+    command: ["redis-server", "--appendonly", "yes"]
     ports: ["6379:6379"]
     volumes: ["clevia_redis:/data"]
     healthcheck:
-      test: ["CMD","redis-cli","ping"]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 10

@@ -7,10 +7,11 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
+from app.core.request_context import set_clinic_context
 from app.db.models.clinic import Clinic
 from app.db.models.conversation import Conversation
 from app.db.models.crm import Lead
-from app.db.models.enums import AppointmentSource, LeadSource, LeadStatus
+from app.db.models.enums import AgentState, AppointmentSource, LeadSource, LeadStatus
 from app.db.models.service import Service
 from app.db.models.staff import Staff
 from app.db.session import get_db
@@ -26,27 +27,30 @@ router = APIRouter()
 
 async def active_clinic(db: AsyncSession) -> Clinic:
     clinic = await db.scalar(
-        select(Clinic).where(Clinic.is_active.is_(True)).limit(1)
+        select(Clinic).where(
+            Clinic.slug == settings.DEFAULT_CLINIC_SLUG,
+            Clinic.is_active.is_(True),
+        )
     )
     if clinic is None:
-        raise HTTPException(status_code=404, detail="Clinic not configured")
+        raise HTTPException(
+            status_code=404,
+            detail=f"Active clinic '{settings.DEFAULT_CLINIC_SLUG}' is not configured",
+        )
+    set_clinic_context(clinic.id)
     return clinic
 
 
 @router.get("/clinic", response_model=ClinicPublic)
 async def clinic_public(db: AsyncSession = Depends(get_db)):
-    key = cache_key("public", "clinic")
+    clinic = await active_clinic(db)
+    key = cache_key("public", "clinic", clinic.id)
     cached = await cache_get_json(key)
     if cached is not None:
         return cached
 
-    clinic = await active_clinic(db)
     payload = ClinicPublic.model_validate(clinic).model_dump(mode="json")
-    await cache_set_json(
-        key,
-        payload,
-        settings.CACHE_TTL_CLINIC_SECONDS,
-    )
+    await cache_set_json(key, payload, settings.CACHE_TTL_CLINIC_SECONDS)
     return payload
 
 
@@ -56,12 +60,7 @@ async def services_public(
     db: AsyncSession = Depends(get_db),
 ):
     clinic = await active_clinic(db)
-    key = cache_key(
-        "public",
-        "services",
-        clinic.id,
-        category or "all",
-    )
+    key = cache_key("public", "services", clinic.id, category or "all")
     cached = await cache_get_json(key)
     if cached is not None:
         return cached
@@ -73,19 +72,11 @@ async def services_public(
     )
     if category:
         query = query.where(Service.category == category)
-
-    services = list(
-        (await db.scalars(query.order_by(Service.name))).all()
-    )
+    services = list((await db.scalars(query.order_by(Service.name))).all())
     payload = [
-        ServicePublic.model_validate(item).model_dump(mode="json")
-        for item in services
+        ServicePublic.model_validate(item).model_dump(mode="json") for item in services
     ]
-    await cache_set_json(
-        key,
-        payload,
-        settings.CACHE_TTL_SERVICES_SECONDS,
-    )
+    await cache_set_json(key, payload, settings.CACHE_TTL_SERVICES_SECONDS)
     return payload
 
 
@@ -110,15 +101,8 @@ async def staff_public(db: AsyncSession = Depends(get_db)):
             )
         ).all()
     )
-    payload = [
-        StaffPublic.model_validate(item).model_dump(mode="json")
-        for item in staff
-    ]
-    await cache_set_json(
-        key,
-        payload,
-        settings.CACHE_TTL_STAFF_SECONDS,
-    )
+    payload = [StaffPublic.model_validate(item).model_dump(mode="json") for item in staff]
+    await cache_set_json(key, payload, settings.CACHE_TTL_STAFF_SECONDS)
     return payload
 
 
@@ -149,15 +133,8 @@ async def availability_public(
         timezone_name=clinic.timezone,
         staff_id=staff_id,
     )
-    payload = [
-        AvailabilitySlot(**slot).model_dump(mode="json")
-        for slot in slots
-    ]
-    await cache_set_json(
-        key,
-        payload,
-        settings.CACHE_TTL_AVAILABILITY_SECONDS,
-    )
+    payload = [AvailabilitySlot(**slot).model_dump(mode="json") for slot in slots]
+    await cache_set_json(key, payload, settings.CACHE_TTL_AVAILABILITY_SECONDS)
     return payload
 
 
@@ -166,8 +143,8 @@ async def appointment_request(
     payload: PublicAppointmentRequest,
     db: AsyncSession = Depends(get_db),
 ):
+    """Website booking remains available; Sprint 1 only disables autonomous agent booking tools."""
     clinic = await active_clinic(db)
-
     lead = await db.scalar(
         select(Lead).where(
             Lead.clinic_id == clinic.id,
@@ -209,6 +186,7 @@ async def create_conversation(db: AsyncSession = Depends(get_db)):
         clinic_id=clinic.id,
         public_token=secrets.token_urlsafe(40),
         channel="web",
+        agent_state=AgentState.INFO.value,
     )
     db.add(conversation)
     await db.commit()
@@ -217,4 +195,5 @@ async def create_conversation(db: AsyncSession = Depends(get_db)):
         conversation_id=conversation.id,
         conversation_token=conversation.public_token,
         status=conversation.status.value,
+        agent_state=conversation.agent_state,
     )

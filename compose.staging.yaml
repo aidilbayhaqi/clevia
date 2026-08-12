@@ -1,0 +1,73 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clevia-api-staging
+    env_file: [.env.staging]
+    environment:
+      ENVIRONMENT: staging
+      AGENT_TRANSACTIONAL_TOOLS_ENABLED: "false"
+    ports: ["8000:8000"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/ready', timeout=3)\"",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 8
+      start_period: 25s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${FRONTEND_API_URL:-http://localhost:8000/api/v1}
+        VITE_DEMO_MODE: "false"
+        VITE_WHATSAPP_NUMBER: ${FRONTEND_WHATSAPP_NUMBER:-622155502026}
+    container_name: clevia-frontend-staging
+    ports: ["3000:80"]
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: clevia-postgres-staging
+    environment:
+      POSTGRES_DB: clevia
+      POSTGRES_USER: clevia
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    volumes: ["clevia_staging_postgres:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clevia -d clevia"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:8-alpine
+    container_name: clevia-redis-staging
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: ["clevia_staging_redis:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  clevia_staging_postgres:
+  clevia_staging_redis:
