@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     APP_NAME: str = "Clevia Beauty Clinic API"
-    APP_VERSION: str = "0.5.0"
+    APP_VERSION: str = "0.6.0"
     ENVIRONMENT: str = "development"
     API_V1_PREFIX: str = "/api/v1"
 
@@ -19,6 +19,11 @@ class Settings(BaseSettings):
 
     DEFAULT_CLINIC_SLUG: str = "clevia"
 
+    LLM_PROVIDER: str = "gemini"
+
+    GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-3.5-flash"
+    GEMINI_TEMPERATURE: float = 0.7
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-5.6-luna"
     OPENAI_REASONING_EFFORT: str = "low"
@@ -44,6 +49,36 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    @property
+    def normalized_llm_provider(self) -> str:
+        return self.LLM_PROVIDER.strip().lower()
+
+    @property
+    def llm_configured(self) -> bool:
+        provider = self.normalized_llm_provider
+        if provider == "gemini":
+            return bool(self.GEMINI_API_KEY.strip())
+        if provider == "openai":
+            return bool(self.OPENAI_API_KEY.strip())
+        return False
+
+    @property
+    def active_llm_model(self) -> str:
+        provider = self.normalized_llm_provider
+        if provider == "gemini":
+            return self.GEMINI_MODEL
+        if provider == "openai":
+            return self.OPENAI_MODEL
+        return "unknown"
+
+    @property
+    def active_llm_key_name(self) -> str:
+        provider = self.normalized_llm_provider
+        if provider == "gemini":
+            return "GEMINI_API_KEY"
+        if provider == "openai":
+            return "OPENAI_API_KEY"
+        return "LLM_API_KEY"
     @property
     def is_non_dev(self) -> bool:
         return self.ENVIRONMENT.lower() in {"staging", "production"}

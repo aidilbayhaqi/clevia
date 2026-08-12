@@ -68,4 +68,11 @@ class AgentState(StrEnum):
 class KnowledgeStatus(StrEnum):
     DRAFT = "draft"
     PUBLISHED = "published"
+    APPROVED = "approved"
     ARCHIVED = "archived"
+
+
+class FeedbackRating(StrEnum):
+    GOOD = "good"
+    WRONG = "wrong"
+    MISSING_KNOWLEDGE = "missing_knowledge"

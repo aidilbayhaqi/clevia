@@ -18,7 +18,7 @@ from app.core.config import settings
 from app.core.request_context import get_request_context
 from app.db.models.conversation import Conversation, Message
 from app.db.models.enums import AgentState, ConversationStatus
-from app.llm.openai_adapter import OpenAIResponsesAdapter
+from app.llm.provider import get_llm_adapter
 from app.llm.prompt_registry import prompt_registry
 from app.observability.tracing import TraceRecorder, source_refs_from_tool_result
 from app.services.safety import classify_risk, emergency_response
@@ -27,7 +27,7 @@ from app.tools.registry import TOOL_SCHEMAS, execute_tool
 
 class CleviaAgent:
     def __init__(self) -> None:
-        self.llm = OpenAIResponsesAdapter()
+        self.llm = get_llm_adapter()
 
     @staticmethod
     def _handoff_summary(history: list[Message], user_message: str) -> str:

@@ -99,11 +99,14 @@ async def send_public_message(
             history=history,
         )
     except RuntimeError as exc:
-        if "OPENAI_API_KEY" in str(exc):
+        if "API_KEY" in str(exc):
             await db.commit()
             raise HTTPException(
                 status_code=503,
-                detail="AI chatbot is not configured yet. Set OPENAI_API_KEY in .env.",
+                detail=(
+                    "AI chatbot is not configured yet. "
+                    f"Set {settings.active_llm_key_name} in .env."
+                ),
             ) from exc
         raise
 
@@ -113,8 +116,9 @@ async def send_public_message(
         sender_type="ai",
         content=result.message,
         model_name=(
-            settings.OPENAI_MODEL
-            if settings.OPENAI_API_KEY and result.intent == "INFORMATION"
+            settings.active_llm_model
+            if settings.llm_configured
+            and result.intent not in {"GREETING", "HUMAN_HANDOFF", "MEDICAL_SAFETY"}
             else None
         ),
         tool_trace_json=json.dumps(result.tools_used, ensure_ascii=False, default=str),
