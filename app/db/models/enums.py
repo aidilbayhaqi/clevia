@@ -67,12 +67,5 @@ class AgentState(StrEnum):
 
 class KnowledgeStatus(StrEnum):
     DRAFT = "draft"
-    PUBLISHED = "published"  # legacy compatibility until the next cleanup migration
-    APPROVED = "approved"
+    PUBLISHED = "published"
     ARCHIVED = "archived"
-
-
-class FeedbackRating(StrEnum):
-    GOOD = "good"
-    WRONG = "wrong"
-    MISSING_KNOWLEDGE = "missing_knowledge"

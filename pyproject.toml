@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "clevia-backend"
-version = "0.3.0"
+version = "0.5.0"
 description = "Clevia clinic customer engagement, CRM, knowledge, and AI agent backend."
 requires-python = ">=3.12,<3.15"
 dependencies = [

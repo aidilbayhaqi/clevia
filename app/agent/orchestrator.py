@@ -139,6 +139,12 @@ class CleviaAgent:
             )
 
         intent = route_intent(user_message)
+        lead_flow_active = (
+            conversation.agent_state == AgentState.COLLECTING.value
+            or intent in {Intent.SERVICE_INTEREST, Intent.BOOKING_INTEREST}
+        )
+        if intent in {Intent.SERVICE_INTEREST, Intent.BOOKING_INTEREST}:
+            conversation.agent_state = AgentState.COLLECTING.value
         if intent == Intent.GREETING:
             conversation.agent_state = AgentState.INFO.value
             await trace.finish(
@@ -151,7 +157,7 @@ class CleviaAgent:
                 outcome="static_response",
             )
             return AgentResult(
-                message="Halo, saya Clevia Assistant. Ada informasi klinik yang ingin Anda tanyakan?",
+                message="Hai, ada yang bisa saya bantu hari ini?",
                 state=AgentState.INFO,
                 intent=intent.value,
                 trace_id=trace.trace_id,
@@ -218,16 +224,19 @@ class CleviaAgent:
                         item.source_ref: item for item in sources
                     }
                     sources = list(unique_sources.values())
-                    if requires_grounded_source(intent) and not sources and handoff is None:
+                    if requires_grounded_source(intent) and not sources and handoff is None and not lead_flow_active:
                         reply = MISSING_EVIDENCE_MESSAGE
                         outcome = "missing_evidence"
                     else:
                         reply = turn.text or MISSING_EVIDENCE_MESSAGE
                         outcome = "answered" if sources else "completed"
 
-                    conversation.agent_state = (
-                        AgentState.HANDOFF.value if handoff else AgentState.INFO.value
-                    )
+                    if handoff is not None:
+                        conversation.agent_state = AgentState.HANDOFF.value
+                    elif lead_flow_active and conversation.lead_id is None:
+                        conversation.agent_state = AgentState.COLLECTING.value
+                    else:
+                        conversation.agent_state = AgentState.INFO.value
                     await trace.finish(
                         intent=intent.value,
                         state=conversation.agent_state,
