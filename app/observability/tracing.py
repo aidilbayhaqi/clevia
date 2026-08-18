@@ -7,6 +7,7 @@ from typing import Any
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models.observability import AgentTrace, ToolExecution
+from app.observability.redaction import redact_for_trace
 
 
 class TraceRecorder:
@@ -50,6 +51,7 @@ class TraceRecorder:
         clinic_id: uuid.UUID,
         conversation_id: uuid.UUID | None,
         idempotency_key: str | None = None,
+        error_code: str | None = None,
     ) -> None:
         self.trace.tool_calls_json = [
             *self.trace.tool_calls_json,
@@ -61,11 +63,12 @@ class TraceRecorder:
                 clinic_id=clinic_id,
                 conversation_id=conversation_id,
                 tool_name=tool_name,
-                input_json=input_json,
-                output_json=output_json,
+                input_json=redact_for_trace(input_json),
+                output_json=redact_for_trace(output_json),
                 status=status,
                 idempotency_key=idempotency_key,
                 latency_ms=latency_ms,
+                error_code=error_code,
             )
         )
         await self.db.flush()

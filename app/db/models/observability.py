@@ -55,6 +55,7 @@ class ToolExecution(UUIDPrimaryKeyMixin, Base):
     status: Mapped[str] = mapped_column(String(30), nullable=False)
     idempotency_key: Mapped[str | None] = mapped_column(String(160), unique=True)
     latency_ms: Mapped[int | None] = mapped_column(Integer)
+    error_code: Mapped[str | None] = mapped_column(String(120))
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )

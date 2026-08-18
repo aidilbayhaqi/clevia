@@ -4,13 +4,14 @@ from app.core.config import settings
 from app.llm.base import LLMAdapter
 from app.llm.gemini_adapter import GeminiGenerateContentAdapter
 from app.llm.openai_adapter import OpenAIResponsesAdapter
+from app.llm.gemini_adapter import GeminiLLMAdapter
 
 
 def get_llm_adapter() -> LLMAdapter:
     provider = settings.normalized_llm_provider
 
     if provider == "gemini":
-        return GeminiGenerateContentAdapter()
+        return GeminiLLMAdapter.from_env()
 
     if provider == "openai":
         return OpenAIResponsesAdapter()

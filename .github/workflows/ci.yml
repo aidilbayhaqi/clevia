@@ -59,6 +59,7 @@ jobs:
       - run: pytest -q
       - run: alembic upgrade head
       - run: python -m evals.runner --offline
+      - run: python -m evals.p0_release_gate
       - run: python -m pip check
       - run: docker build -t clevia-api-ci .
 

@@ -43,3 +43,7 @@ class GeminiLLMAdapter:
 
     async def close(self) -> None:
         await self._provider.aclose()
+
+# Backward compatibility alias
+# Existing provider.py and older tests expect this name.
+GeminiGenerateContentAdapter = GeminiLLMAdapter

@@ -20,6 +20,7 @@ from app.db.models.conversation import Conversation, Message
 from app.db.models.enums import AgentState, ConversationStatus
 from app.llm.provider import get_llm_adapter
 from app.llm.prompt_registry import prompt_registry
+from app.observability.redaction import redact_for_trace
 from app.observability.tracing import TraceRecorder, source_refs_from_tool_result
 from app.services.safety import classify_risk, emergency_response
 from app.tools.registry import TOOL_SCHEMAS, execute_tool
@@ -265,6 +266,7 @@ class CleviaAgent:
                         arguments = {}
                     started = time.perf_counter()
                     status = "success"
+                    tool_error_code: str | None = None
                     try:
                         result = await execute_tool(
                             db,
@@ -275,16 +277,17 @@ class CleviaAgent:
                         )
                     except Exception as exc:
                         status = "error"
+                        tool_error_code = type(exc).__name__
                         result = {
                             "error": "TOOL_EXECUTION_FAILED",
-                            "message": str(exc)[:500],
+                            "message": "Tool execution failed. Use fallback or handoff.",
                         }
                     latency_ms = int((time.perf_counter() - started) * 1000)
                     tool_trace.append(
                         {
                             "name": function_call.name,
-                            "arguments": arguments,
-                            "result": result,
+                            "arguments": redact_for_trace(arguments),
+                            "result": redact_for_trace(result),
                             "status": status,
                         }
                     )
@@ -299,6 +302,7 @@ class CleviaAgent:
                         latency_ms=latency_ms,
                         clinic_id=conversation.clinic_id,
                         conversation_id=conversation.id,
+                        error_code=tool_error_code,
                     )
                     if function_call.name == "request_human_handoff" and status == "success":
                         handoff = HandoffResult(
