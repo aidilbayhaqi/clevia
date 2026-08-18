@@ -1,0 +1,118 @@
+{
+  "version": "0.6.3",
+  "canonical_orchestrator_exists": true,
+  "bridge_exists": true,
+  "runtime_exists": true,
+  "files_scanned": 19,
+  "relevant": [
+    {
+      "file": "app/agent/llm_bridge.py",
+      "imports": [
+        "__future__.annotations",
+        "app.llm.runtime.LLMRuntime",
+        "app.observability.llm_trace.LLMCallContext",
+        "app.observability.llm_trace.LLMTraceEvent",
+        "dataclasses.dataclass"
+      ],
+      "classes": [
+        "AgentLLMBridge",
+        "AgentLLMResult"
+      ],
+      "functions": [
+        "__init__",
+        "close",
+        "create_agent_llm_bridge",
+        "generate"
+      ],
+      "hits": [
+        {
+          "line": 1,
+          "terms": [
+            "llmruntime"
+          ],
+          "text": "\"\"\"Bridge canonical dari Agent Clevia ke LLMRuntime."
+        },
+        {
+          "line": 11,
+          "terms": [
+            "llmruntime"
+          ],
+          "text": "from app.llm.runtime import LLMRuntime"
+        },
+        {
+          "line": 22,
+          "terms": [
+            "llmruntime"
+          ],
+          "text": "def __init__(self, runtime: LLMRuntime | None = None) -> None:"
+        },
+        {
+          "line": 23,
+          "terms": [
+            "llmruntime"
+          ],
+          "text": "self._runtime = runtime or LLMRuntime()"
+        },
+        {
+          "line": 33,
+          "terms": [
+            ".complete("
+          ],
+          "text": "result = await self._runtime.complete("
+        },
+        {
+          "line": 45,
+          "terms": [
+            "llm_bridge"
+          ],
+          "text": "def create_agent_llm_bridge() -> AgentLLMBridge:"
+        }
+      ]
+    },
+    {
+      "file": "app/agent/orchestrator.py",
+      "imports": [
+        "__future__.annotations",
+        "app.agent.policies.HUMAN_HANDOFF_MESSAGE",
+        "app.agent.policies.MEDICAL_HANDOFF_MESSAGE",
+        "app.agent.policies.MISSING_EVIDENCE_MESSAGE",
+        "app.agent.policies.requires_grounded_source",
+        "app.agent.router.Intent",
+        "app.agent.router.route_intent",
+        "app.agent.schemas.AgentResult",
+        "app.agent.schemas.HandoffResult",
+        "app.agent.schemas.SourceReference",
+        "app.core.config.settings",
+        "app.core.request_context.get_request_context",
+        "app.db.models.conversation.Conversation",
+        "app.db.models.conversation.Message",
+        "app.db.models.enums.AgentState",
+        "app.db.models.enums.ConversationStatus",
+        "app.llm.prompt_registry.prompt_registry",
+        "app.llm.provider.get_llm_adapter",
+        "app.observability.tracing.TraceRecorder",
+        "app.observability.tracing.source_refs_from_tool_result",
+        "app.services.safety.classify_risk",
+        "app.services.safety.emergency_response",
+        "app.tools.registry.TOOL_SCHEMAS",
+        "app.tools.registry.execute_tool",
+        "datetime.datetime",
+        "datetime.timezone",
+        "json",
+        "sqlalchemy.ext.asyncio.AsyncSession",
+        "time"
+      ],
+      "classes": [
+        "CleviaAgent"
+      ],
+      "functions": [
+        "__init__",
+        "_direct_handoff",
+        "_handoff_summary",
+        "_source_objects",
+        "run"
+      ],
+      "hits": []
+    }
+  ]
+}
