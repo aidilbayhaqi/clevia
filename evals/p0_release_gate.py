@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from app.agent.router import route_intent
+from app.llm.prompt_registry import prompt_registry
 from app.observability.redaction import redact_for_trace
 from app.services.safety import classify_risk
 
@@ -23,6 +24,13 @@ CASES = [
 
 def read(relative: str) -> str:
     return (ROOT / relative).read_text(encoding="utf-8")
+
+
+def _version_tuple(value: str) -> tuple[int, int, int]:
+    parts = value.split(".")
+    if len(parts) != 3:
+        raise ValueError(f"Expected MAJOR.MINOR.PATCH prompt version, got {value!r}")
+    return tuple(int(part) for part in parts)  # type: ignore[return-value]
 
 
 def main() -> int:
@@ -86,9 +94,23 @@ def main() -> int:
         if needle not in adapter:
             failures.append({"contract": "gemini_runtime", "missing": needle})
 
-    prompt = read("app/llm/prompt_registry.py")
-    if 'version="2.0.0"' not in prompt:
-        failures.append({"contract": "prompt_version_2"})
+    try:
+        prompt_version = prompt_registry.get("clevia-informational").version
+        if _version_tuple(prompt_version) < (2, 0, 0):
+            failures.append(
+                {
+                    "contract": "prompt_version",
+                    "minimum": "2.0.0",
+                    "actual": prompt_version,
+                }
+            )
+    except (KeyError, TypeError, ValueError) as exc:
+        failures.append(
+            {
+                "contract": "prompt_version",
+                "error": type(exc).__name__,
+            }
+        )
 
     clean = redact_for_trace(
         {
@@ -104,6 +126,7 @@ def main() -> int:
         "gate": "P0_REPAIR_V066",
         "passed": not failures,
         "routing_cases": len(CASES),
+        "prompt_version": prompt_registry.get("clevia-informational").version,
         "failures": failures,
     }
 

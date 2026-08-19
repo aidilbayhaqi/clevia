@@ -8,7 +8,6 @@ REDACTED = "[REDACTED]"
 
 SENSITIVE_KEYS = {
     "full_name",
-    "name",
     "phone",
     "phone_number",
     "mobile",

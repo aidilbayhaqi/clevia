@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import DateTime, Enum, ForeignKey, String, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.models.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
@@ -38,6 +38,7 @@ class Conversation(UUIDPrimaryKeyMixin, TimestampMixin, Base):
     )
     risk_level: Mapped[str] = mapped_column(String(40), default="normal", nullable=False)
     public_token: Mapped[str] = mapped_column(String(128), unique=True, index=True)
+    booking_draft: Mapped[dict] = mapped_column(JSONB, default=dict, nullable=False)
 
     assigned_user_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True),

@@ -38,12 +38,12 @@ async def seed():
             db.add(clinic)
             await db.flush()
 
-        owner = await db.scalar(select(User).where(User.email == "owner@clevia.local"))
+        owner = await db.scalar(select(User).where(User.email == "owner@clevia.id"))
         if owner is None:
             owner = User(
                 clinic_id=clinic.id,
                 full_name="Clevia Owner",
-                email="owner@clevia.local",
+                email="owner@clevia.id",
                 password_hash=hash_password("ChangeMe123!"),
                 role=UserRole.OWNER,
             )
@@ -182,7 +182,7 @@ async def seed():
 
         await db.commit()
         print("Seed complete")
-        print("Login: owner@clevia.local / ChangeMe123!")
+        print("Login: owner@clevia.id / ChangeMe123!")
         print("Change the password before real deployment.")
 
 

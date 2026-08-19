@@ -1,5 +1,41 @@
 # Changelog
 
+## 1.0.0 - Sprint 4 Appointment Agent
+
+- Added persistent booking drafts with COLLECTING -> CONFIRMING -> EXECUTING/INFO flow.
+- Added deterministic availability lookup and numbered slot selection.
+- Added explicit confirmation gate before any AI appointment write.
+- Added idempotent appointment request creation for exact lead/service/staff/start combinations.
+- AI-created appointments start as REQUESTED and lead status becomes BOOKED.
+- Added safe cancellation and stale-slot recovery.
+- Added tenant-safe admin appointment status transitions and audit events.
+- Added Alembic migration 20260819_0004 for conversation booking_draft.
+
+## 0.9.0 - Sprint 3 Lead & CRM Reliability
+
+- Added deterministic lead contact collection after genuine service/booking intent.
+- Added phone normalization and same-clinic lead deduplication by phone.
+- Added deterministic service-interest resolution for captured chatbot leads.
+- Added respectful lead-capture opt-out handling.
+- Hardened CRM lead updates against cross-clinic assignee/service references.
+- Added lead filtering/pagination and editable CRM lead contact fields.
+- Added deterministic integration tests without requiring a live LLM call.
+
+## 0.8.1 - Sprint 2 Clinic Profile Routing Hotfix
+
+- Added deterministic routing for public clinic profile fields such as address, Instagram, phone, email, and contact details.
+- Profile questions now use `get_clinic_profile` directly instead of relying on probabilistic LLM tool selection.
+- Added deterministic profile routing tests and HTTP acceptance coverage.
+
+## 0.8.0 - Sprint 2 Informational AI Quality
+
+- Added precise `search_services` lookup for named service questions.
+- Added prompt-level tool routing for service catalogue, clinic profile, and knowledge FAQ requests.
+- Added per-agent-run caching for identical read-only tool calls.
+- Improved source precision for named service answers.
+- Kept service/business names visible in traces while retaining customer PII redaction.
+- Added Sprint 2 deterministic tests, live DB service-search validation, and release documentation.
+
 ## 0.7.0 - Sprint 1 Reliability Closure
 
 - Consolidated the working Gemini GenerateContent tool-calling adapter.

@@ -10,13 +10,13 @@ import {
 } from '../data/demo';
 
 const wait=(x)=>new Promise(r=>setTimeout(()=>r(structuredClone(x)),160));
-const demoUser={id:'usr-1',name:'Clevia Owner',full_name:'Clevia Owner',email:'owner@clevia.local',role:'owner'};
+const demoUser={id:'usr-1',name:'Clevia Owner',full_name:'Clevia Owner',email:'owner@clevia.id',role:'owner'};
 const normalizeUser=x=>({...x,name:x.name||x.full_name});
 
 export const crmApi={
   async login(email,password){
     if(DEMO_MODE){
-      if(email!=='owner@clevia.local'||password!=='ChangeMe123!') throw new Error('Email atau password demo tidak sesuai.');
+      if(email!=='owner@clevia.id'||password!=='ChangeMe123!') throw new Error('Email atau password demo tidak sesuai.');
       const token='demo-clevia-token';
       localStorage.setItem(TOKEN_KEY,token);
       return wait({access_token:token,token_type:'bearer',user:demoUser});
