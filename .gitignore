@@ -16,8 +16,6 @@ frontend/.env
 
 .clevia-patches/
 .mypy_cache/
-.clevia-installer-backups/
-.clevia-patches/
-.mypy_cache/
-.clevia-installer-backups/
-.clevia-patches/
+.env.*
+!.env.example
+.clevia-sprint1-work/

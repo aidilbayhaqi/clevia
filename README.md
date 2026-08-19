@@ -130,3 +130,10 @@ clevia:v1:availability:{clinic_id}:{service_id}:{date}:{staff_id}
 ```
 
 Gunakan `SCAN`, bukan `KEYS`, untuk invalidation berbasis pattern.
+
+## v0.7.0 Reliability Baseline
+
+The canonical AI runtime uses `GeminiGenerateContentAdapter` with controlled
+provider failure handling and pinned `google-genai==2.18.1`.
+
+See `docs/SPRINT_1_RELIABILITY.md` for the release gate.

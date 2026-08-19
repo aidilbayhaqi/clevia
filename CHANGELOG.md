@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.0 - Sprint 1 Reliability Closure
+
+- Consolidated the working Gemini GenerateContent tool-calling adapter.
+- Added controlled LLM timeout/rate/provider error normalization.
+- Added public system fallback for controlled LLM runtime failures.
+- Removed eager agent construction from route import time.
+- Normalized duplicate local environment keys and typed Gemini timeout configuration.
+- Pinned `google-genai==2.18.1` to the verified working runtime.
+- Added Sprint 1 regression and acceptance tooling.
+
 All notable changes to CleVIA are documented here.
 
 ## [0.3.0] - 2026-08-11

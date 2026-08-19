@@ -10,6 +10,7 @@ from app.agent.orchestrator import CleviaAgent
 from app.api.deps import get_current_user
 from app.core.config import settings
 from app.core.request_context import set_clinic_context
+from app.llm.errors import LLMNotConfiguredError, LLMRuntimeError
 from app.db.models.conversation import Conversation, Message
 from app.db.models.enums import AgentState, ConversationStatus
 from app.db.models.observability import MessageFeedback
@@ -29,7 +30,18 @@ from app.services.audit import add_audit_event
 
 public_router = APIRouter()
 admin_router = APIRouter()
-agent = CleviaAgent()
+
+_agent: CleviaAgent | None = None
+
+
+def get_agent() -> CleviaAgent:
+    global _agent
+    if _agent is None:
+        _agent = CleviaAgent()
+    return _agent
+
+
+SYSTEM_FALLBACK_MESSAGE = "Maaf, asisten kami sedang mengalami gangguan sementara. Silakan coba kembali beberapa saat lagi atau hubungi tim klinik."
 
 
 async def _tenant_conversation(
@@ -92,23 +104,46 @@ async def send_public_message(
     await db.flush()
 
     try:
-        result = await agent.run(
+        result = await get_agent().run(
             db,
             conversation=conversation,
             user_message=payload.message,
             history=history,
         )
-    except RuntimeError as exc:
-        if "API_KEY" in str(exc):
-            await db.commit()
-            raise HTTPException(
-                status_code=503,
-                detail=(
-                    "AI chatbot is not configured yet. "
-                    f"Set {settings.active_llm_key_name} in .env."
-                ),
-            ) from exc
-        raise
+    except LLMNotConfiguredError as exc:
+        await db.commit()
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                "AI chatbot is not configured yet. "
+                f"Set {settings.active_llm_key_name} in .env."
+            ),
+        ) from exc
+    except LLMRuntimeError:
+        conversation.agent_state = AgentState.INFO.value
+        fallback_message = Message(
+            conversation_id=conversation.id,
+            role="assistant",
+            sender_type="ai",
+            content=SYSTEM_FALLBACK_MESSAGE,
+            model_name=None,
+            tool_trace_json="[]",
+            trace_id=None,
+        )
+        db.add(fallback_message)
+        await db.commit()
+        await db.refresh(fallback_message)
+        return PublicMessageResponse(
+            message=SYSTEM_FALLBACK_MESSAGE,
+            message_id=fallback_message.id,
+            conversation_status=conversation.status.value,
+            state=AgentState.INFO.value,
+            intent="SYSTEM_FALLBACK",
+            tools_used=[],
+            sources=[],
+            handoff=None,
+            trace_id=None,
+        )
 
     assistant_message = Message(
         conversation_id=conversation.id,

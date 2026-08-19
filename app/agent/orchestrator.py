@@ -18,6 +18,7 @@ from app.core.config import settings
 from app.core.request_context import get_request_context
 from app.db.models.conversation import Conversation, Message
 from app.db.models.enums import AgentState, ConversationStatus
+from app.llm.errors import LLMInvalidResponseError
 from app.llm.provider import get_llm_adapter
 from app.llm.prompt_registry import prompt_registry
 from app.observability.redaction import redact_for_trace
@@ -328,7 +329,7 @@ class CleviaAgent:
                 outcome="error",
                 error_code="MAX_AGENT_STEPS",
             )
-            raise RuntimeError("Agent exceeded MAX_AGENT_STEPS")
+            raise LLMInvalidResponseError("Agent exceeded MAX_AGENT_STEPS")
         except Exception as exc:
             if trace.trace.outcome == "running":
                 await trace.finish(

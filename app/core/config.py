@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     APP_NAME: str = "Clevia Beauty Clinic API"
-    APP_VERSION: str = "0.6.0"
+    APP_VERSION: str = "0.7.0"
     ENVIRONMENT: str = "development"
     API_V1_PREFIX: str = "/api/v1"
 
@@ -24,6 +24,9 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str = ""
     GEMINI_MODEL: str = "gemini-3.5-flash"
     GEMINI_TEMPERATURE: float = 0.7
+    GEMINI_TIMEOUT_SECONDS: float = 120.0
+    GEMINI_MAX_OUTPUT_TOKENS: int = 2048
+
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-5.6-luna"
     OPENAI_REASONING_EFFORT: str = "low"
@@ -79,6 +82,7 @@ class Settings(BaseSettings):
         if provider == "openai":
             return "OPENAI_API_KEY"
         return "LLM_API_KEY"
+
     @property
     def is_non_dev(self) -> bool:
         return self.ENVIRONMENT.lower() in {"staging", "production"}
