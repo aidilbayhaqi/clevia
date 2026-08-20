@@ -34,7 +34,7 @@ export default function SettingsPage() {
         <section className="panel panel--full">
           <div className="settings-section-title"><Icon name="settings" /><div><b>Frontend runtime</b><span>Migration baseline</span></div></div>
           <div className="runtime-grid">
-            <div><small>Frontend</small><b>2.1.0</b><span>React + TypeScript</span></div>
+            <div><small>Frontend</small><b>2.2.1</b><span>React + TypeScript</span></div>
             <div><small>Architecture</small><b>Typed API layer</b><span>Public + CRM clients</span></div>
             <div><small>Design</small><b>Unified system</b><span>Public + admin tokens</span></div>
             <div><small>Backend user</small><b>{user?.role || "—"}</b><span>Role-aware session</span></div>

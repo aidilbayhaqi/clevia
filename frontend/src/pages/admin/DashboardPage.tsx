@@ -77,7 +77,7 @@ export default function DashboardPage() {
         }
       />
 
-      <div className="stats-grid">
+      <div className="stats-grid stats-grid--responsive">
         <StatCard
           label="Total leads"
           value={data.leads.length}

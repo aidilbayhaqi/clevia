@@ -57,7 +57,7 @@ export default function KnowledgePage() {
 
       <div className="table-toolbar"><label className="search-field search-field--wide"><Icon name="search" /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search knowledge..." /></label><span className="count-pill">{data.filter((item) => item.status === "approved").length} approved</span></div>
 
-      <div className="knowledge-grid">
+      <div className="knowledge-grid knowledge-grid--responsive">
         {filtered.map((document) => (
           <article className="knowledge-card" key={document.id}>
             <div className="knowledge-card__head"><div><span>{document.category}</span><h3>{document.title}</h3></div><StatusBadge value={document.status} /></div>
